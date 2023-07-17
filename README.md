@@ -12,7 +12,7 @@ The Async Inn Hotel Asset Management System is a web-based API designed to help 
 
 ## ERD Table: 📉
 
-![ERD](./HarethVersion.png)
+![ERD](./Assets/HarethVersion.png)
 
 ---
 
