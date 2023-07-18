@@ -2,7 +2,12 @@
 
 Author📝: AlHareth Alhyari.
 
-Date📅: 16/7/2023.
+
+| Lab  #️⃣     | Class Title   📝           | Date 📅    |
+|-----------|----------------------------|------------|
+| Lab 11    | Databases and ERDs         | 16/7/2023  |
+| Lab 12    | Intro to Entity Framework  | 18/7/2023  |
+
 
 ## Description: 📝
 
@@ -13,6 +18,12 @@ The Async Inn Hotel Asset Management System is a web-based API designed to help 
 ## ERD Table: 📉
 
 ![ERD](./Assets/HarethVersion.png)
+
+## Official ERD Table: 📉
+
+- This is the table that I relied on the data it contains to design the app.
+
+![async-inn-erd](./Assets/async-inn-erd.png)
 
 ---
 
