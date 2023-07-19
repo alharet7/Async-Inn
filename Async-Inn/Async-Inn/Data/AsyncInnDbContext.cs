@@ -13,9 +13,10 @@ namespace Async_Inn.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Hotel>().HasData(
-                new Hotel() { Id = 1, Name = "Capital Hotel", StreetAddress = "King Abdullah St", City = "Amman", Country = "Jordan", Phone = "00962786031935", State = "Amman" },
-                new Hotel() { Id = 2, Name = "Mountain Hotel", StreetAddress = "60th St", City = "AlSalt", Country = "Jordan", Phone = "00962786031935", State = "AlSalt" },
-                new Hotel() { Id = 3, Name = "City Hotel", StreetAddress = "City Centre St", City = "Aqaba", Country = "Jordan", Phone = "00962786031935", State = "Aqaba" });
+                new Hotel() { Id = 1, Name = "Capital Hotel", StreetAddress = "King Abdullah St", City = "Amman", State = "Amman", Country = "Jordan", Phone = "00962786031935" },
+                new Hotel() { Id = 2, Name = "Mountain Hotel", StreetAddress = "60th St", City = "AlSalt", State = "AlSalt", Country = "Jordan", Phone = "00962786031935" },
+                new Hotel() { Id = 3, Name = "City Hotel", StreetAddress = "City Centre St", City = "Aqaba", State = "Aqaba", Country = "Jordan", Phone = "00962786031935" });
+
             modelBuilder.Entity<Room>().HasData(
                 new Room() { Id = 1, Name = "Studio", Layout = 0 },
                 new Room() { Id = 2, Name = "Single Room", Layout = 1 },
