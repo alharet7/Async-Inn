@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Async_Inn.Data;
 using Async_Inn.Models;
+using Async_Inn.Models.Interfaces;
 
 namespace Async_Inn.Controllers
 {
@@ -14,33 +15,33 @@ namespace Async_Inn.Controllers
     [ApiController]
     public class HotelsController : ControllerBase
     {
-        private readonly AsyncInnDbContext _context;
+        private readonly IHotel _hotel;
 
-        public HotelsController(AsyncInnDbContext context)
+        public HotelsController(IHotel hotel)
         {
-            _context = context;
+            _hotel = hotel;
         }
 
         // GET: api/Hotels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
         {
-          if (_context.Hotels == null)
-          {
-              return NotFound();
-          }
-            return await _context.Hotels.ToListAsync();
+            if (_hotel == null)
+            {
+                return NotFound();
+            }
+            return await _hotel.GetHotel();
         }
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Hotel>> GetHotel(int id)
         {
-          if (_context.Hotels == null)
-          {
-              return NotFound();
-          }
-            var hotel = await _context.Hotels.FindAsync(id);
+            if (_hotel == null)
+            {
+                return NotFound();
+            }
+            var hotel = await _hotel.GetHotelById(id);
 
             if (hotel == null)
             {
@@ -53,32 +54,11 @@ namespace Async_Inn.Controllers
         // PUT: api/Hotels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotel(int id, Hotel hotel)
+        public async Task<IActionResult> PutHotel([FromRoute] int id, [FromBody] Hotel hotel)
         {
-            if (id != hotel.Id)
-            {
-                return BadRequest();
-            }
+            var updatedHotel = _hotel.UpDateHotel(id, hotel);
 
-            _context.Entry(hotel).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HotelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(updatedHotel);
         }
 
         // POST: api/Hotels
@@ -86,12 +66,11 @@ namespace Async_Inn.Controllers
         [HttpPost]
         public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
         {
-          if (_context.Hotels == null)
-          {
-              return Problem("Entity set 'AsyncInnDbContext.Hotels'  is null.");
-          }
-            _context.Hotels.Add(hotel);
-            await _context.SaveChangesAsync();
+            if (_hotel == null)
+            {
+                return Problem("Entity set 'AsyncInnDbContext.Hotels'  is null.");
+            }
+            await _hotel.Create(hotel);
 
             return CreatedAtAction("GetHotel", new { id = hotel.Id }, hotel);
         }
@@ -100,25 +79,15 @@ namespace Async_Inn.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHotel(int id)
         {
-            if (_context.Hotels == null)
+            if (_hotel == null)
             {
                 return NotFound();
             }
-            var hotel = await _context.Hotels.FindAsync(id);
-            if (hotel == null)
-            {
-                return NotFound();
-            }
-
-            _context.Hotels.Remove(hotel);
-            await _context.SaveChangesAsync();
+            await _hotel.Delete(id);
 
             return NoContent();
         }
 
-        private bool HotelExists(int id)
-        {
-            return (_context.Hotels?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+
     }
 }
