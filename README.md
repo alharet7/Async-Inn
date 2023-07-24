@@ -7,6 +7,7 @@ Author📝: AlHareth Alhyari.
 |-----------|----------------------------|------------|
 | Lab 11    | Databases and ERDs         | 16/7/2023  |
 | Lab 12    | Intro to Entity Framework  | 18/7/2023  |
+| Lab 13    | Dependency Injection & Repository Design Pattern  | 24/7/2023  |
 
 
 ## Description: 📝
