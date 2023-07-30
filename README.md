@@ -35,8 +35,8 @@ The Async Inn Hotel Asset Management System is a web-based API designed to help 
 ![Get](https://github.com/alharet7/Async-Inn/blob/main/Assets/Get.png)
 ![Put](https://github.com/alharet7/Async-Inn/blob/main/Assets/Put.png)
 ![Delete](https://github.com/alharet7/Async-Inn/blob/main/Assets/Delete.png)
-![NewPostRooms](./https://github.com/alharet7/Async-Inn/blob/main/Assets/Lab14post.png)
-![NewPostaminitetyToRoomsByHotel](./https://github.com/alharet7/Async-Inn/blob/main/Assets/Lab14postHotelRoom.png)
+![NewPostRooms](https://github.com/alharet7/Async-Inn/blob/main/Assets/Lab14post.png)
+![NewPostaminitetyToRoomsByHotel](https://github.com/alharet7/Async-Inn/blob/main/Assets/Lab14postHotelRoom.png)
 
 ---
 
