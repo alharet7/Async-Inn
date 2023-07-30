@@ -8,6 +8,7 @@ Author📝: AlHareth Alhyari.
 | Lab 11    | Databases and ERDs         | 16/7/2023  |
 | Lab 12    | Intro to Entity Framework  | 18/7/2023  |
 | Lab 13    | Dependency Injection & Repository Design Pattern  | 24/7/2023  |
+| Lab 14    | Navigation props & Routs  | 30/7/2023  |
 
 
 ## Description: 📝
@@ -34,6 +35,8 @@ The Async Inn Hotel Asset Management System is a web-based API designed to help 
 ![Get](https://github.com/alharet7/Async-Inn/blob/main/Assets/Get.png)
 ![Put](https://github.com/alharet7/Async-Inn/blob/main/Assets/Put.png)
 ![Delete](https://github.com/alharet7/Async-Inn/blob/main/Assets/Delete.png)
+![NewPostRooms]()
+![NewPostaminitetyToRoomsByHotel]()
 
 ---
 
