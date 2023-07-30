@@ -3,19 +3,19 @@
     public interface IHotelRoom
     {
         //Create HotelRoom
-        //Task<HotelRooms> Create(HotelRooms amenities);
+        Task<HotelRoom> Create(HotelRoom hotelRoom, int hotelId);
 
 
         //Get All HotelRoom
-        //Task<List<HotelRooms>> GetAll();
+        Task<List<HotelRoom>> GetAll();
 
         //Get HotelRoom By Id
-        //Task<HotelRooms> GetHotelRoomsById(int Id);
+        Task<HotelRoom> GetHotelRoomById(int HotelId, int RoomNumber);
 
         //Update HotelRoom
-        //Task<HotelRooms> UpdateHotelRoom(int Id, HotelRooms amenities);
+        Task<HotelRoom> UpdateHotelRoom(int HotelId, int RoomNumber, HotelRoom hotelRoom);
 
         //Delete HotelRoom
-        //Task DeleteHotelRoom(int Id);
+        Task DeleteHotelRoom(int HotelId, int RoomNumber);
     }
 }

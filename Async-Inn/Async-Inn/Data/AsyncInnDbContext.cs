@@ -26,6 +26,23 @@ namespace Async_Inn.Data
                 new Amenities() { Id = 1, Name = "Coffee Maker" },
                 new Amenities() { Id = 2, Name = "AC" },
                 new Amenities() { Id = 3, Name = "Sea View" });
+
+            modelBuilder.Entity<HotelRoom>().HasKey(
+               HotelRooms => new
+               {
+                   HotelRooms.HotelId,
+                   HotelRooms.RoomID
+
+
+               });
+
+            modelBuilder.Entity<RoomAmenities>().HasKey(
+                RoomAmenities => new
+                {
+                    RoomAmenities.AmenitiesId,
+                    RoomAmenities.RoomID
+                }
+                );
         }
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Room> Rooms { get; set; }
