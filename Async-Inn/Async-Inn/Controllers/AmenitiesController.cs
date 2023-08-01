@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Async_Inn.Data;
 using Async_Inn.Models;
 using Async_Inn.Models.Interfaces;
+using Async_Inn.Models.DTO;
 
 namespace Async_Inn.Controllers
 {
@@ -24,7 +25,7 @@ namespace Async_Inn.Controllers
 
         // GET: api/Amenities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Amenities>>> GetAmenities()
+        public async Task<ActionResult<IEnumerable<AmenityDTO>>> GetAmenities()
         {
             if (_amenity == null)
             {
@@ -35,7 +36,7 @@ namespace Async_Inn.Controllers
 
         // GET: api/Amenities/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Amenities>> GetAmenities(int id)
+        public async Task<ActionResult<AmenityDTO>> GetAmenities(int id)
         {
             if (_amenity == null)
             {
@@ -54,10 +55,14 @@ namespace Async_Inn.Controllers
         // PUT: api/Amenities/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAmenities([FromRoute] int id,[FromBody] Amenities amenities)
+        public async Task<IActionResult> PutAmenities([FromRoute] int Id, [FromBody] AmenityDTO amenities)
         {
-            
-            var updatedamenity = await _amenity.UpdateAmenitie(id, amenities);
+            if (Id != amenities.Id)
+            {
+                return BadRequest();
+            }
+
+            var updatedamenity = await _amenity.UpdateAmenitie(Id, amenities);
 
             return Ok(updatedamenity);
         }
@@ -65,7 +70,7 @@ namespace Async_Inn.Controllers
         // POST: api/Amenities
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Amenities>> PostAmenities(Amenities amenities)
+        public async Task<ActionResult<AmenityDTO>> PostAmenities(AmenityDTO amenities)
         {
             if (_amenity == null)
             {

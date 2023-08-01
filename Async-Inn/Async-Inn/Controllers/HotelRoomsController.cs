@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Async_Inn.Data;
 using Async_Inn.Models;
 using Async_Inn.Models.Interfaces;
+using Async_Inn.Models.DTO;
 
 namespace Async_Inn.Controllers
 {
@@ -25,18 +26,18 @@ namespace Async_Inn.Controllers
         // GET: api/HotelRooms
         [HttpGet]
         [Route("/api/Hotels/{hotelId}/Rooms")]
-        public async Task<ActionResult<IEnumerable<HotelRoom>>> GetHotelRooms()
+        public async Task<ActionResult<IEnumerable<HotelRoomDTO>>> GetHotelRooms(int HotelId)
         {
             if (_hotelRoom == null)
             {
                 return NotFound();
             }
-            return await _hotelRoom.GetAll();
+            return await _hotelRoom.GetAll(HotelId);
         }
 
         // GET: api/HotelRooms/5
         [HttpGet("{HotelId}/Rooms/{RoomNumber}")]
-        public async Task<ActionResult<HotelRoom>> GetHotelRoom(int HotelId, int RoomNumber)
+        public async Task<ActionResult<HotelRoomDTO>> GetHotelRoom(int HotelId, int RoomNumber)
         {
             if (_hotelRoom == null)
             {
@@ -56,7 +57,7 @@ namespace Async_Inn.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{HotelId}/Rooms/{RoomNumber}")]
 
-        public async Task<IActionResult> PutHotelRoom(int HotelId, int RoomNumber, HotelRoom hotelRoom)
+        public async Task<IActionResult> PutHotelRoom(int HotelId, int RoomNumber, HotelRoomDTO hotelRoom)
         {
             if (HotelId != hotelRoom.HotelId && RoomNumber != hotelRoom.RoomNumber)
             {
@@ -84,8 +85,13 @@ namespace Async_Inn.Controllers
         //}
         [HttpPost]
         [Route("/api/Hotels/{hotelId}/Rooms")]
-        public async Task<ActionResult<HotelRoom>> PostHotelRoom(HotelRoom hotelRoom, int hotelId)
+        public async Task<ActionResult<HotelRoomDTO>> PostHotelRoom(HotelRoomDTO hotelRoom, int hotelId)
         {
+            if (hotelRoom == null)
+            {
+                return Problem("the model is null or has no data ");
+            }
+
             var addedHotelRoom = await _hotelRoom.Create(hotelRoom, hotelId);
             return Ok(addedHotelRoom);
         }
