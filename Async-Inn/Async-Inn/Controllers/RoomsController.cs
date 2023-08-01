@@ -9,6 +9,7 @@ using Async_Inn.Data;
 using Async_Inn.Models;
 using Async_Inn.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Async_Inn.Models.DTO;
 
 namespace Async_Inn.Controllers
 {
@@ -25,7 +26,7 @@ namespace Async_Inn.Controllers
 
         // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
+        public async Task<ActionResult<IEnumerable<RoomDTO>>> GetRooms()
         {
             if (_room == null)
             {
@@ -36,7 +37,7 @@ namespace Async_Inn.Controllers
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        public async Task<ActionResult<RoomDTO>> GetRoom(int id)
         {
             if (_room == null)
             {
@@ -55,7 +56,7 @@ namespace Async_Inn.Controllers
         // PUT: api/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoom([FromRoute] int id, [FromBody] Room room)
+        public async Task<IActionResult> PutRoom([FromRoute] int id, [FromBody] RoomDTO room)
         {
             if (id != room.Id)
             {
@@ -70,7 +71,7 @@ namespace Async_Inn.Controllers
         // POST: api/Rooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Room>> PostRoom(Room room)
+        public async Task<ActionResult<RoomDTO>> PostRoom(RoomDTO room)
         {
             if (_room == null)
             {
