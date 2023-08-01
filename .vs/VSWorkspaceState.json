@@ -1,10 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Async-Inn",
-    "\\Async-Inn\\Async-Inn",
-    "\\Async-Inn\\Async-Inn\\Controllers"
+    "\\Async-Inn"
   ],
-  "SelectedNode": "\\Async-Inn\\Async-Inn\\Controllers\\HotelRoomsController.cs",
+  "SelectedNode": "\\README.md",
   "PreviewInSolutionExplorer": false
 }
