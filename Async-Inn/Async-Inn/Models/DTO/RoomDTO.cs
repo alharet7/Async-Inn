@@ -7,7 +7,8 @@
         public int Layout { get; set; }
 
 
-        public List<AmenityDTO> Amenities { get; set; }
+        public List<AmenityDTO>? Amenities { get; set; }
         //public List<HotelRoomDTO> HotelRooms { get; set; }
     }
+
 }

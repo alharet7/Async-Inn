@@ -11,7 +11,7 @@
         public string Phone { get; set; }
 
         //Nav Prop
-        public List<HotelRoom> hotelroom { get; set; }
+        public List<HotelRoom>? hotelroom { get; set; }
     }
 
 

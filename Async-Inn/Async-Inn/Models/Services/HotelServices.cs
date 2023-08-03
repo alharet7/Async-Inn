@@ -14,27 +14,27 @@ namespace Async_Inn.Models.Services
             _hotel = hotel;
         }
 
-        public async Task<HotelDTO> Create(HotelDTO hotel)
+        public async Task<Hotel> Create(Hotel hotel)
         {
-            _hotel.Entry(hotel).State = EntityState.Added;
 
-            await _hotel.SaveChangesAsync();
+            //Hotel hotelDTO = new()
+            //{
+            //    Id = hotel.Id,
+            //    Name = hotel.Name,
+            //    StreetAddress = hotel.StreetAddress,
+            //    City = hotel.City,
+            //    State = hotel.State,
+            //    Phone = hotel.Phone,
+            //};
 
-            HotelDTO hotelDTO = new HotelDTO
-            {
-                Id = hotel.Id,
-                Name = hotel.Name,
-                StreetAddress = hotel.StreetAddress,
-                City = hotel.City,
-                State = hotel.State,
-                Phone = hotel.Phone,
-            };
-
-            return hotelDTO;
-            //_hotel.Hotels.Add(hotel);
+            //_hotel.Entry(hotelDTO).State = EntityState.Added;
             //await _hotel.SaveChangesAsync();
 
-            //return hotel;
+            //return hotelDTO;
+            _hotel.Hotels.Add(hotel);
+            await _hotel.SaveChangesAsync();
+
+            return hotel;
         }
 
         public async Task Delete(int Id)
@@ -130,23 +130,29 @@ namespace Async_Inn.Models.Services
             //return hotel;
         }
 
-        public async Task<HotelDTO> UpDateHotel(int Id, HotelDTO hotel)
+        public async Task<Hotel> UpDateHotel(int Id, Hotel hotel)
         {
-            HotelDTO hotelDTO = new HotelDTO
-            {
-                Id = hotel.Id,
-                Name = hotel.Name,
-                StreetAddress = hotel.StreetAddress,
-                City = hotel.City,
-                State = hotel.State,
-                Phone = hotel.Phone,
-            };
-
-            _hotel.Entry(hotel).State = EntityState.Modified;
+            hotel.Id = Id;
+            _hotel.Entry<Hotel>(hotel).State = EntityState.Modified;
 
             await _hotel.SaveChangesAsync();
 
-            return hotelDTO;
+            return hotel;
+            //Hotel hotelDTO = new()
+            //{
+            //    Id = hotel.Id,
+            //    Name = hotel.Name,
+            //    StreetAddress = hotel.StreetAddress,
+            //    City = hotel.City,
+            //    State = hotel.State,
+            //    Phone = hotel.Phone,
+            //};
+
+            //_hotel.Entry(hotel).State = EntityState.Modified;
+
+            //await _hotel.SaveChangesAsync();
+
+            //return hotel;
 
             //var hotelValue = await _hotel.Hotels.FindAsync(Id);
             //if (hotelValue != null)

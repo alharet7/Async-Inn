@@ -7,7 +7,7 @@ namespace Async_Inn.Models
         public int AmenitiesId { get; set; }
         public int RoomID { get; set; }
 
-        public Amenities Amenities { get; set; }
-        public Room Room { get; set; }
+        public Amenities? Amenities { get; set; }
+        public Room? Room { get; set; }
     }
 }

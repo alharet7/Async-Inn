@@ -71,7 +71,7 @@ namespace Async_Inn.Controllers
         // POST: api/Rooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<RoomDTO>> PostRoom(RoomDTO room)
+        public async Task<ActionResult<RoomDTO>> PostRoom(AddNewRoomDTO room)
         {
             if (_room == null)
             {

@@ -9,8 +9,8 @@
 
         //Nav Prop
 
-        public List<HotelRoom> hotelroom { get; set; }
-        public List<RoomAmenities> RoomAmenities { get; set; }
+        public List<HotelRoom>? hotelroom { get; set; }
+        public List<RoomAmenities>? RoomAmenities { get; set; }
     }
     // public enum Layout
 }

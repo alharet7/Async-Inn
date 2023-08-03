@@ -13,18 +13,21 @@ namespace Async_Inn.Models.Services
         {
             _amenity = amenity;
         }
-        public async Task<AmenityDTO> Create(AmenityDTO amenities)
+        public async Task<AmenityDTO> Create(AmenityDTO amenityDto)
         {
-            _amenity.Entry(amenities).State = EntityState.Added;
-            await _amenity.SaveChangesAsync();
 
-            AmenityDTO amenityDTO = new AmenityDTO
+            Amenities amenity = new()
             {
-                Id = amenities.Id,
-                Name = amenities.Name,
+                Id = amenityDto.Id,
+                Name = amenityDto.Name
             };
+            _amenity.Entry(amenity).State = EntityState.Added;
 
-            return amenities;
+            await _amenity.SaveChangesAsync();
+            amenityDto.Id = amenity.Id;
+
+            return amenityDto;
+
         }
 
         public async Task DeleteAmenitie(int Id)
@@ -63,26 +66,28 @@ namespace Async_Inn.Models.Services
             //return amenity;
         }
 
-        public async Task<AmenityDTO> UpdateAmenitie(int Id, AmenityDTO amenities)
+        public async Task<Amenities> UpdateAmenitie(int Id, Amenities amenities)
         {
-            AmenityDTO amenityDTO = new AmenityDTO
+
+
+            var amenityValue = await _amenity.Amenities.FindAsync(Id);
+
+            if (amenityValue != null)
             {
-                Id = amenities.Id,
-                Name = amenities.Name,
-            };
-            _amenity.Entry(amenities).State = EntityState.Modified;
-            await _amenity.SaveChangesAsync();
-            return amenityDTO;
+                amenityValue.Name = amenities.Name;
 
-            //var amenityValue = await _amenity.Amenities.FindAsync(Id);
+                await _amenity.SaveChangesAsync();
+            }
+            return amenityValue;
 
-            //if (amenityValue != null)
+            //AmenityDTO amenityDTO = new AmenityDTO
             //{
-            //    amenityValue.Name = amenities.Name;
-
-            //    await _amenity.SaveChangesAsync();
-            //}
-            //return amenityValue;
+            //    Id = amenities.Id,
+            //    Name = amenities.Name,
+            //};
+            //_amenity.Entry(amenities).State = EntityState.Modified;
+            //await _amenity.SaveChangesAsync();
+            //return amenityDTO;
         }
     }
 }
