@@ -10,17 +10,18 @@ namespace Async_Inn.Models.Services
     {
         private readonly AsyncInnDbContext _context;
 
-        public HotelRoomServices(AsyncInnDbContext context)
+        private readonly IRoom _room;
+
+        public HotelRoomServices(AsyncInnDbContext context , IRoom room)
         {
             _context = context;
+            _room = room;
         }
         public async Task<HotelRoomDTO> Create(HotelRoomDTO hotelRoom, int hotelId)
         {
-            _context.Entry(hotelRoom).State = EntityState.Added;
+            
 
-            await _context.SaveChangesAsync();
-
-            HotelRoomDTO room = new HotelRoomDTO
+            HotelRoom newRoom = new()
             {
                 HotelId = hotelId,
                 RoomNumber = hotelRoom.RoomNumber,
@@ -28,8 +29,18 @@ namespace Async_Inn.Models.Services
                 PetFriendly = hotelRoom.PetFriendly,
                 RoomID = hotelRoom.RoomID
             };
+            var room = await _room.GetRoom(newRoom.RoomID);
+            if (room != null)
+            {
+                hotelRoom.Room = room;
+                _context.Entry(newRoom).State = EntityState.Added;
+                await _context.SaveChangesAsync();
 
-            return room;
+                return hotelRoom;
+            }
+
+            else
+            return null;
 
 
             //var room = await _context.Rooms.FindAsync(hotelRoom.RoomID);

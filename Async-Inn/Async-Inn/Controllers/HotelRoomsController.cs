@@ -87,10 +87,6 @@ namespace Async_Inn.Controllers
         [Route("/api/Hotels/{hotelId}/Rooms")]
         public async Task<ActionResult<HotelRoomDTO>> PostHotelRoom(HotelRoomDTO hotelRoom, int hotelId)
         {
-            if (hotelRoom == null)
-            {
-                return Problem("the model is null or has no data ");
-            }
 
             var addedHotelRoom = await _hotelRoom.Create(hotelRoom, hotelId);
             return Ok(addedHotelRoom);

@@ -9,6 +9,6 @@
         public bool PetFriendly { get; set; }
 
 
-        public RoomDTO Room { get; set; }
+        public RoomDTO? Room { get; set; }
     }
 }

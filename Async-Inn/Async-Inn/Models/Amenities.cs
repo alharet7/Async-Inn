@@ -7,7 +7,7 @@
 
 
         //Nav Prop
-        public List<RoomAmenities> RoomAmenities { get; set; }
+        public List<RoomAmenities>? RoomAmenities { get; set; }
 
     }
 }
