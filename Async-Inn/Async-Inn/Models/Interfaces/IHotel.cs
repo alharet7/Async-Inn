@@ -1,12 +1,14 @@
-﻿
-
 using Async_Inn.Models.DTO;
 
 namespace Async_Inn.Models.Interfaces
 {
     public interface IHotel
     {
-        // Create 
+        /// <summary>
+        /// Creates a new Hotel and adds it to the database. Returns the created Hotel entity.
+        /// </summary>
+        /// <param name="hotel">The Hotel entity representing the new hotel to be created.</param>
+        /// <returns>The newly created Hotel entity.</returns>
         Task<Hotel> Create(Hotel hotel);
 
         // GET All
