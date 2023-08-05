@@ -10,6 +10,7 @@ Author📝: AlHareth Alhyari.
 | Lab 13    | Dependency Injection & Repository Design Pattern  | 24/07/2023  |
 | Lab 14    | Navigation props & Routs  | 30/07/2023  |
 | Lab 16    | DTOs  | 01/08/2023  |
+| Lab 16    | Testing and Swagger and Deployment  | 05/08/2023  |
 
 ## Description: 📝
 
