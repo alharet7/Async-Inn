@@ -13,6 +13,13 @@ namespace Async_Inn.Models.Services
         {
             _amenity = amenity;
         }
+
+
+        /// <summary>
+        /// Creates a new Amenity and adds it to the database. Returns the created AmenityDTO with the generated ID.
+        /// </summary>
+        /// <param name="amenityDto">The AmenityDTO object representing the new Amenity to be created.</param>
+        /// <returns>The newly created AmenityDTO object.</returns>
         public async Task<AmenityDTO> Create(AmenityDTO amenityDto)
         {
 
@@ -30,6 +37,10 @@ namespace Async_Inn.Models.Services
 
         }
 
+        /// <summary>
+        /// Deletes an existing Amenity from the database based on the provided ID.
+        /// </summary>
+        /// <param name="Id">The ID of the Amenity to be deleted.</param>
         public async Task DeleteAmenitie(int Id)
         {
 
@@ -40,6 +51,11 @@ namespace Async_Inn.Models.Services
             await _amenity.SaveChangesAsync();
         }
 
+
+        /// <summary>
+        /// Retrieves a list of all Amenities from the database and returns them as a List of AmenityDTO objects.
+        /// </summary>
+        /// <returns>A List of AmenityDTO objects representing all available Amenities.</returns>
         public async Task<List<AmenityDTO>> GetAll()
         {
             return await _amenity.Amenities.Select(a => new AmenityDTO
@@ -53,6 +69,13 @@ namespace Async_Inn.Models.Services
             //return amenities;
         }
 
+
+        /// <summary>
+        /// Retrieves a specific Amenity from the database based on the provided ID and returns it as an AmenityDTO object.
+        /// </summary>
+        /// <param name="Id">The ID of the Amenity to retrieve.</param>
+        /// <returns>An AmenityDTO object representing the requested Amenity; null if not found.</returns>
+
         public async Task<AmenityDTO> GetAmenitiesById(int Id)
         {
             var amenity = await _amenity.Amenities.Select(a => new AmenityDTO
@@ -65,6 +88,14 @@ namespace Async_Inn.Models.Services
             //var amenity = await _amenity.Amenities.FindAsync(Id);
             //return amenity;
         }
+
+        /// <summary>
+        /// Updates an existing Amenity in the database based on the provided ID and Amenities object.
+        /// Returns the updated Amenity if found; otherwise, returns null.
+        /// </summary>
+        /// <param name="Id">The ID of the Amenity to update.</param>
+        /// <param name="amenities">The updated Amenities object containing new data.</param>
+        /// <returns>The updated Amenity; null if the Amenity with the given ID does not exist.</returns>
 
         public async Task<Amenities> UpdateAmenitie(int Id, Amenities amenities)
         {

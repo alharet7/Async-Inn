@@ -277,3 +277,8 @@ D:\VS\Async-Inn\Async-Inn\Async-Inn\bin\Debug\net7.0\runtimes\win-arm\native\e_s
 D:\VS\Async-Inn\Async-Inn\Async-Inn\bin\Debug\net7.0\runtimes\win-arm64\native\e_sqlite3.dll
 D:\VS\Async-Inn\Async-Inn\Async-Inn\bin\Debug\net7.0\runtimes\win-x64\native\e_sqlite3.dll
 D:\VS\Async-Inn\Async-Inn\Async-Inn\bin\Debug\net7.0\runtimes\win-x86\native\e_sqlite3.dll
+D:\VS\Async-Inn\Async-Inn\Async-Inn\bin\Debug\net7.0\Microsoft.OpenApi.dll
+D:\VS\Async-Inn\Async-Inn\Async-Inn\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\VS\Async-Inn\Async-Inn\Async-Inn\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\VS\Async-Inn\Async-Inn\Async-Inn\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\VS\Async-Inn\Async-Inn\Async-Inn\obj\Debug\net7.0\Async-Inn.MvcApplicationPartsAssemblyInfo.cs
