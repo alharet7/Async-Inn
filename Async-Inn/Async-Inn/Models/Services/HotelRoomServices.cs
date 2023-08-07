@@ -12,14 +12,22 @@ namespace Async_Inn.Models.Services
 
         private readonly IRoom _room;
 
-        public HotelRoomServices(AsyncInnDbContext context , IRoom room)
+        public HotelRoomServices(AsyncInnDbContext context, IRoom room)
         {
             _context = context;
             _room = room;
         }
+
+        /// <summary>
+        /// Creates a new HotelRoom for the specified hotel and adds it to the database. Returns the created HotelRoomDTO with the generated ID.
+        /// </summary>
+        /// <param name="hotelRoom">The HotelRoomDTO object representing the new HotelRoom to be created.</param>
+        /// <param name="hotelId">The ID of the hotel to which the new HotelRoom belongs.</param>
+        /// <returns>The newly created HotelRoomDTO object if the associated Room exists; otherwise, returns null.</returns>
+
         public async Task<HotelRoomDTO> Create(HotelRoomDTO hotelRoom, int hotelId)
         {
-            
+
 
             HotelRoom newRoom = new()
             {
@@ -40,7 +48,7 @@ namespace Async_Inn.Models.Services
             }
 
             else
-            return null;
+                return null;
 
 
             //var room = await _context.Rooms.FindAsync(hotelRoom.RoomID);
@@ -56,6 +64,12 @@ namespace Async_Inn.Models.Services
             //return hotelRoom;
         }
 
+
+        /// <summary>
+        /// Deletes an existing HotelRoom from the database based on the provided Hotel ID and Room Number.
+        /// </summary>
+        /// <param name="HotelId">The ID of the hotel to which the HotelRoom belongs.</param>
+        /// <param name="RoomNumber">The Room Number of the HotelRoom to be deleted.</param>
         public async Task DeleteHotelRoom(int HotelId, int RoomNumber)
         {
             var hotelRoom = await _context.HotelRooms
@@ -71,6 +85,13 @@ namespace Async_Inn.Models.Services
             //    await _context.SaveChangesAsync();
             //}
         }
+
+
+        /// <summary>
+        /// Retrieves a list of all HotelRooms for the specified hotel from the database and returns them as a List of HotelRoomDTO objects.
+        /// </summary>
+        /// <param name="hotelId">The ID of the hotel for which to retrieve HotelRooms.</param>
+        /// <returns>A List of HotelRoomDTO objects representing all HotelRooms for the specified hotel.</returns>
 
         public async Task<List<HotelRoomDTO>> GetAll(int hotelId)
         {
@@ -99,6 +120,13 @@ namespace Async_Inn.Models.Services
             //return HotelRooms;
         }
 
+        /// <summary>
+        /// Retrieves a specific HotelRoom from the database based on the provided Hotel ID and Room Number.
+        /// </summary>
+        /// <param name="HotelId">The ID of the hotel to which the HotelRoom belongs.</param>
+        /// <param name="RoomNumber">The Room Number of the HotelRoom to retrieve.</param>
+        /// <returns>An HotelRoomDTO object representing the requested HotelRoom if found; otherwise, returns null.</returns>
+
         public async Task<HotelRoomDTO> GetHotelRoomById(int HotelId, int RoomNumber)
         {
             var hotelroom = await _context.HotelRooms
@@ -125,6 +153,15 @@ namespace Async_Inn.Models.Services
             //var hotelRoom = await _context.HotelRooms.FindAsync(HotelId, RoomNumber);
             //return hotelRoom;
         }
+
+        /// <summary>
+        /// Updates an existing HotelRoom in the database based on the provided Hotel ID, Room Number, and HotelRoomDTO.
+        /// Returns the updated HotelRoomDTO if found; otherwise, returns null.
+        /// </summary>
+        /// <param name="HotelId">The ID of the hotel to which the HotelRoom belongs.</param>
+        /// <param name="RoomNumber">The Room Number of the HotelRoom to update.</param>
+        /// <param name="hr">The updated HotelRoomDTO containing new data.</param>
+        /// <returns>The updated HotelRoomDTO if the HotelRoom is found; otherwise, returns null.</returns>
 
         public async Task<HotelRoomDTO> UpdateHotelRoom(int HotelId, int RoomNumber, HotelRoomDTO hr)
         {
