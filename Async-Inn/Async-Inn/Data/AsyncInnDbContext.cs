@@ -1,4 +1,5 @@
 ﻿using Async_Inn.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -30,6 +31,14 @@ namespace Async_Inn.Data
                 new Amenities() { Id = 2, Name = "AC" },
                 new Amenities() { Id = 3, Name = "Sea View" });
 
+            //------------------------------------------------- Lab 19 -----------------------------
+            SeedRoles(modelBuilder, "DistrictManager", "create", "update", "delete", "read");
+            SeedRoles(modelBuilder, "PropertyManager", "create", "update", "read");
+            SeedRoles(modelBuilder, "Agent", "update", "read");
+            SeedRoles(modelBuilder, "AnonymousUsers", "read");
+
+            //--------------------------------------------------------------------------------------
+
             modelBuilder.Entity<HotelRoom>().HasKey(
                HotelRooms => new
                {
@@ -47,6 +56,32 @@ namespace Async_Inn.Data
                 }
                 );
         }
+        //------------------------------------------------ Lab 19 ----------------------
+
+        private int id = 1;
+        private void SeedRoles(ModelBuilder modelBuilder, string roleName, params string[] permissions)
+        {
+            var role = new IdentityRole
+            {
+                Id = roleName.ToLower(),
+                Name = roleName,
+                NormalizedName = roleName.ToUpper(),
+                ConcurrencyStamp = Guid.Empty.ToString()
+            };
+            modelBuilder.Entity<IdentityRole>().HasData(role);
+            var RoleClaims = permissions.Select(permissions =>
+            new IdentityRoleClaim<string>
+            {
+                Id = id++,
+                RoleId = role.Id,
+                ClaimType = "persmissions",
+                ClaimValue = permissions
+            }).ToArray();
+
+            modelBuilder.Entity<IdentityRoleClaim<string>>().HasData(RoleClaims);
+        }
+
+
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<HotelRoom> HotelRooms { get; set; }

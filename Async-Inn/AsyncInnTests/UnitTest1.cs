@@ -1,8 +1,15 @@
+using Async_Inn.Controllers;
 using Async_Inn.Models;
 using Async_Inn.Models.DTO;
+using Async_Inn.Models.Interfaces;
 using Async_Inn.Models.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Data.Sqlite;
-
+using Moq;
+using System.Security.Claims;
 
 namespace AsyncInnTests
 {
@@ -115,7 +122,88 @@ namespace AsyncInnTests
             var Hots = await service.GetHotel();
             Assert.Equal(hotels.Count, Hots.Count);
         }
+        [Fact]
+        public async Task Register_User_As_District_Manager()
+        {
+            // Arrange
+            var userMock = new Mock<IUser>();
+            var userManagerMock = new Mock<UserManager<ApplicationUser>>(MockBehavior.Strict, null, null, null, null, null, null, null, null);
+            var jwtTokenServiceMock = new Mock<JwtTokenService>(null, null);
 
+            var roles = new List<Claim> { new Claim(ClaimTypes.Role, "District Manager") };
+            var userPrincipal = new ClaimsPrincipal(new ClaimsIdentity(roles));
+
+            var controller = new UsersController(userMock.Object);
+            controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = new DefaultHttpContext
+                {
+                    User = userPrincipal
+                }
+            };
+
+            var registerDto = new RegisterUserDTO
+            {
+                Username = "TestUser",
+                Email = "test@example.com",
+                PhoneNumber = "123456789",
+                Password = "P@ssw0rd",
+                Roles = new List<string> { "Agent" } // Adjust the roles as needed
+            };
+
+            var expectedResult = new UserDTO
+            {
+                Id = "UserId",
+                Username = registerDto.Username,
+                Token = "MockedToken",
+                Roles = new List<string> { "Agent" } // Adjust the roles as needed
+            };
+
+            userMock.Setup(u => u.Register(It.IsAny<RegisterUserDTO>(), It.IsAny<ModelStateDictionary>(), It.IsAny<ClaimsPrincipal>()))
+                            .ReturnsAsync(expectedResult);
+
+            // Act
+            var result = await controller.Register(registerDto);
+
+            // Assert
+            var actionResult = Assert.IsType<ActionResult<UserDTO>>(result);
+            var userDto = Assert.IsType<UserDTO>(actionResult.Value);
+
+            Assert.Equal(expectedResult.Username, userDto.Username);
+            Assert.Equal(expectedResult.Roles, userDto.Roles);
+
+        }
+        [Fact]
+        public async Task SignIn_User_Successfully()
+        {
+            // Arrange
+            var expectedResult = new UserDTO
+            {
+                Id = "UserId",
+                Username = "TestUser",
+                Token = "MockedToken",
+                Roles = new List<string> { "Agent" }
+            };
+
+            var userMock = SetupUserMock(expectedResult);
+            var controller = new UsersController(userMock);
+
+            var loginDto = new LoginDTO
+            {
+                Username = "TestUser",
+                Password = "P@ssw0rd"
+            };
+
+            // Act
+            var result = await controller.Login(loginDto);
+
+            // Assert
+            var actionResult = Assert.IsType<ActionResult<UserDTO>>(result);
+            var userDto = Assert.IsType<UserDTO>(actionResult.Value);
+
+            Assert.Equal(expectedResult.Username, userDto.Username);
+            Assert.Equal(expectedResult.Roles, userDto.Roles);
+        }
 
     }
 }

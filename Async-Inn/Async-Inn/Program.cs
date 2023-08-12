@@ -2,6 +2,7 @@ using Async_Inn.Data;
 using Async_Inn.Models;
 using Async_Inn.Models.Interfaces;
 using Async_Inn.Models.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,13 +33,37 @@ namespace Async_Inn
             })
                 .AddEntityFrameworkStores<AsyncInnDbContext>();
 
-
+            //-------------------------------------Lab 18---------------------------------------------------
             builder.Services.AddTransient<IUser, IdentityUserService>();
-
+            //-----------------------------------Lab 13 ----------------------------------------------------
             builder.Services.AddTransient<IHotel, HotelServices>();
             builder.Services.AddTransient<IRoom, RoomServices>();
             builder.Services.AddTransient<IAmenity, AmenityServices>();
             builder.Services.AddTransient<IHotelRoom, HotelRoomServices>();
+
+            //------------------------------------ Lab 19 ---------------------------------------------------
+            builder.Services.AddScoped<JwtTokenService>();
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                // Tell the authenticaion scheme "how/where" to validate the token + secret
+                options.TokenValidationParameters = JwtTokenService.GetValidationParameters(builder.Configuration);
+            });
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("create", policy => policy.RequireClaim("persmissions", "create"));
+                options.AddPolicy("update", policy => policy.RequireClaim("persmissions", "update"));
+                options.AddPolicy("delete", policy => policy.RequireClaim("persmissions", "delete"));
+                options.AddPolicy("read", policy => policy.RequireClaim("persmissions", "read"));
+            });
+
+            builder.Services.AddAuthorization();
 
             builder.Services.AddSwaggerGen(options =>
             {
@@ -50,7 +75,15 @@ namespace Async_Inn
                 });
             });
 
+
+
             var app = builder.Build();
+
+            //------------------------------------Lab 19 ----------------------------------------
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            //----------------------------------- Lab 17 ----------------------------------------
 
             app.UseSwagger(options =>
             {
@@ -64,7 +97,7 @@ namespace Async_Inn
             });
 
 
-            app.UseRouting();
+            // app.UseRouting();
             app.MapControllers();
 
             app.MapGet("/", () => "Hello World!");
