@@ -12,6 +12,7 @@ Author📝: AlHareth Alhyari.
 | Lab 16    | DTOs  | 01/08/2023  |
 | Lab 17    | Testing and Swagger and Deployment  | 05/08/2023  |
 | Lab 18    | Authentication  | 08/08/2023  |
+| Lab 18    | Roles & Claims  | 12/08/2023  |
 
 ## Description: 📝
 
