@@ -362,3 +362,6 @@ D:\VS\Async-Inn\Async-Inn\AsyncInnTests\bin\Debug\net7.0\Microsoft.AspNetCore.Id
 D:\VS\Async-Inn\Async-Inn\AsyncInnTests\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
 D:\VS\Async-Inn\Async-Inn\AsyncInnTests\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
 D:\VS\Async-Inn\Async-Inn\AsyncInnTests\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+D:\VS\Async-Inn\Async-Inn\AsyncInnTests\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\VS\Async-Inn\Async-Inn\AsyncInnTests\bin\Debug\net7.0\Castle.Core.dll
+D:\VS\Async-Inn\Async-Inn\AsyncInnTests\bin\Debug\net7.0\Moq.dll

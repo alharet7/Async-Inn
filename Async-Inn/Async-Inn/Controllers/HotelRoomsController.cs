@@ -9,6 +9,7 @@ using Async_Inn.Data;
 using Async_Inn.Models;
 using Async_Inn.Models.Interfaces;
 using Async_Inn.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Async_Inn.Controllers
 {
@@ -24,6 +25,7 @@ namespace Async_Inn.Controllers
         }
 
         // GET: api/HotelRooms
+        [Authorize(Policy = "read")]
         [HttpGet]
         [Route("/api/Hotels/{hotelId}/Rooms")]
         public async Task<ActionResult<IEnumerable<HotelRoomDTO>>> GetHotelRooms(int HotelId)
@@ -36,6 +38,7 @@ namespace Async_Inn.Controllers
         }
 
         // GET: api/HotelRooms/5
+        [Authorize(Policy = "read")]
         [HttpGet("{HotelId}/Rooms/{RoomNumber}")]
         public async Task<ActionResult<HotelRoomDTO>> GetHotelRoom(int HotelId, int RoomNumber)
         {
@@ -55,6 +58,7 @@ namespace Async_Inn.Controllers
 
         // PUT: api/HotelRooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Policy = "update")]
         [HttpPut("{HotelId}/Rooms/{RoomNumber}")]
 
         public async Task<IActionResult> PutHotelRoom(int HotelId, int RoomNumber, HotelRoomDTO hotelRoom)
@@ -83,6 +87,7 @@ namespace Async_Inn.Controllers
 
         //    return CreatedAtAction("GetHotelRoom", new { id = hotelRoom.HotelID }, hotelRoom);
         //}
+        [Authorize(Policy = "create")]
         [HttpPost]
         [Route("/api/Hotels/{hotelId}/Rooms")]
         public async Task<ActionResult<HotelRoomDTO>> PostHotelRoom(HotelRoomDTO hotelRoom, int hotelId)
@@ -93,6 +98,7 @@ namespace Async_Inn.Controllers
         }
 
         // DELETE: api/HotelRooms/5
+        [Authorize(Policy = "delete")]
         [HttpDelete("{HotelId}/Rooms/{RoomNumber}")]
 
         public async Task<IActionResult> DeleteHotelRoom(int HotelId, int RoomNumber)

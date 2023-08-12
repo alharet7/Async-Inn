@@ -25,6 +25,7 @@ namespace Async_Inn.Controllers
         }
 
         // GET: api/Rooms
+        [Authorize(Policy = "read")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoomDTO>>> GetRooms()
         {
@@ -36,6 +37,7 @@ namespace Async_Inn.Controllers
         }
 
         // GET: api/Rooms/5
+        [Authorize(Policy = "read")]
         [HttpGet("{id}")]
         public async Task<ActionResult<RoomDTO>> GetRoom(int id)
         {
@@ -55,6 +57,7 @@ namespace Async_Inn.Controllers
 
         // PUT: api/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Policy = "update")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRoom([FromRoute] int id, [FromBody] RoomDTO room)
         {
@@ -70,6 +73,7 @@ namespace Async_Inn.Controllers
 
         // POST: api/Rooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Policy = "create")]
         [HttpPost]
         public async Task<ActionResult<RoomDTO>> PostRoom(RoomDTO room)
         {
@@ -83,6 +87,7 @@ namespace Async_Inn.Controllers
         }
 
         // DELETE: api/Rooms/5
+        [Authorize(Policy = "delete")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoom(int id)
         {
@@ -95,6 +100,7 @@ namespace Async_Inn.Controllers
             return NoContent();
         }
         // POST : api/Rooms/5/Amenity/5
+        [Authorize(Policy = "create")]
         [HttpPost]
         [Route("{roomId}/Amenity/{amenityId}")]
         public async Task<IActionResult> AddAmenityToRoom(int roomId, int amenityId)
@@ -105,6 +111,7 @@ namespace Async_Inn.Controllers
         }
 
         // DELETE : api/Rooms/5/Amenity/5
+        [Authorize(Policy = "delete")]
         [HttpDelete]
         [Route("{roomId}/Amenity/{amenityId}")]
         public async Task<IActionResult> RemoveAmentityFromRoom(int roomId, int amenityId)

@@ -2,6 +2,7 @@
 using Async_Inn.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Security.Claims;
 
 namespace Async_Inn.Models.Services
 {
@@ -9,9 +10,14 @@ namespace Async_Inn.Models.Services
     {
         private UserManager<ApplicationUser> userManager;
 
-        public IdentityUserService(UserManager<ApplicationUser> manager)
+        private JwtTokenService _tokenService;
+
+        //----------- Lab 19 -----------------
+        public IdentityUserService(UserManager<ApplicationUser> manager, JwtTokenService jwtTokenService)
         {
             userManager = manager;
+
+            _tokenService = jwtTokenService;
         }
 
 
@@ -24,15 +30,36 @@ namespace Async_Inn.Models.Services
 
             if (validPassword)
             {
-                return new UserDTO { Id = user.Id, Username = user.UserName };
+                return new UserDTO
+                {
+                    Id = user.Id,
+                    Username = user.UserName,
+                    Token = await _tokenService.GetToken(user, System.TimeSpan.FromMinutes(5)),
+                    Roles = await userManager.GetRolesAsync(user),
+                };
             }
 
             return null;
         }
 
 
+        //---------------------------------------------------- Lab 19 ----------------------------
+        public async Task<UserDTO> GetUser(ClaimsPrincipal principal)
+        {
+            var user = await userManager.GetUserAsync(principal);
 
-        public async Task<UserDTO> Register(RegisterUserDTO registerUser, ModelStateDictionary modelState)
+            return new UserDTO
+            {
+                Id = user.Id,
+                Username = user.UserName,
+                Token = await _tokenService.GetToken(user, System.TimeSpan.FromMinutes(5)),
+                Roles = await userManager.GetRolesAsync(user),
+            };
+        }
+
+
+
+        public async Task<UserDTO> Register(RegisterUserDTO registerUser, ModelStateDictionary modelState, ClaimsPrincipal claimsPrincipal)
         {
 
             var user = new ApplicationUser()
@@ -46,10 +73,14 @@ namespace Async_Inn.Models.Services
 
             if (result.Succeeded)
             {
+                await userManager.AddToRolesAsync(user, registerUser.Roles);
+
                 return new UserDTO()
                 {
                     Id = user.Id,
-                    Username = user.UserName
+                    Username = user.UserName,
+                    Token = await _tokenService.GetToken(user, System.TimeSpan.FromMinutes(5)),
+                    Roles = await userManager.GetRolesAsync(user),
                 };
             }
 
